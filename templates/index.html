@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Random Letter Typing Test{% endblock %}
+
+{% block main %}
+    {% if not session.user_id: %}
+        <div class="alert alert-primary" role="alert">
+            <a href="/login">Log in</a> to save your scores!
+        </div>
+    {% endif %}
+    <h2>Welcome to the Random Letter Typing Test!</h2>
+    <div class="container">
+        <p id="welcome">This is a test of your ability to type random (lowercase) letters. Shoot for a position on the
+        <a href="/leaderboard">leaderboard</a> (must be logged in to record score). Good luck!</p>
+        <a class="btn btn-primary" href="/test75" role="button">75 Letters</a>
+        <a class="btn btn-primary" href="/test150" role="button">150 Letters</a>
+    </div>
+{% endblock %}
+

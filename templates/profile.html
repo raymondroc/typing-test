@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <h2>{{username}}'s Stats</h2><br>
+    <div class="row">
+        <div class="col">
+            <h3>75 Letters</h3>
+            <p>Times played: {{playcount_short}}</p>
+            <p>Best time: {% if besttime_short: %} {{besttime_short}} seconds {% else: %} N/A {% endif %}</p>
+            <p>Average of last 10 plays: {% if average_short: %} {{average_short}} seconds {% else: %} N/A {% endif %}</p>
+        </div>
+        <div class="col">
+            <h3>150 Letters</h3>
+            <p>Times played: {{playcount_long}}</p>
+            <p>Best time: {% if besttime_long: %} {{besttime_long}} seconds {% else: %} N/A {% endif %}</p>
+            <p>Average of last 10 plays: {% if average_long: %} {{average_long}} seconds {% else: %} N/A {% endif %}</p>
+        </div>
+    </div>
+{% endblock %}

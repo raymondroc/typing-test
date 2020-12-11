@@ -1,0 +1,76 @@
+/* main element CSS adapted from pset8 Finance */
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+#textbox-div {
+    display: inline-block;
+    width: 60%;
+}
+
+#textbox {
+    display: inline-block;
+    width: 100%;
+}
+
+.container {
+    width: 65%;
+}
+
+.largecontainer {
+    width: 80%;
+}
+
+.adjustsize{
+    width: 75%;
+    display: inline-block;
+}
+
+#text {
+    display: inline-block;
+    font-family: Consolas;
+    font-size: 40px;
+    max-width: 550px;
+    word-wrap:break-word;
+}
+
+#directions {
+    width: 80%;
+    display: inline-block;
+}
+
+.current {
+    color: white;
+    background-color: black;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: white;
+    background-color: red;
+}
+

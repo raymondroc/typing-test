@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    75 Letter Test
+{% endblock %}
+
+{% block main %}
+    {% if not session.user_id: %}
+        <div class="alert alert-primary" role="alert">
+            <a href="/login">Log in</a> to save your scores!
+        </div>
+    {% endif %}
+    <p id="directions">You must type the highlighted letter correctly before proceeding to the next. The timer will start when any key is pressed. </p>
+    <p id="text">{% for i in range(75): %}<span id="{{ i }}">{{ text[i] }}</span>{% endfor %}</p>
+    <p id="results"></p>
+    <a id="retry" href="/test75" role="button"></a>
+
+    <script>
+        var current = 0
+        document.getElementById(current).className = "current";
+        var currentChar = document.getElementById(current).innerHTML;
+        var currentKeyCode = currentChar.charCodeAt(0);
+        var startTime;
+        var endTime;
+        var started = 0;
+        var wrong = 0;
+        var mistakes = 0;
+
+        function typingtest(event) {
+            if (started == 0)
+            {
+                startTime = Date.now();
+                started = 1;
+            }
+
+            // Correct key
+            if (event.keyCode == currentKeyCode) {
+                wrong = 0;
+                document.getElementById(current).className = "correct";
+                current += 1;
+
+                // Runs when user finished
+                if (current == 75)
+                {
+                    // Calculate results
+                    endTime = Date.now();
+                    var time = ((endTime - startTime) / 1000).toFixed(3);
+                    document.getElementById('results').innerHTML = "Your time is ".concat(time, " seconds. You typed ", 75 - mistakes,
+                    "/75 letters correctly on the first try.");
+
+                    // Retry button
+                    retry = document.getElementById('retry');
+                    retry.className = "btn btn-primary";
+                    retry.innerHTML = "Retry";
+
+                    // Sends time to Flask to use in SQL queries
+                    $.post( "/test75", {
+                        time: time
+                    });
+                    document.removeEventListener("keypress", typingtest);
+                    return;
+                }
+
+                // Update "cursor" position
+                document.getElementById(current).className = "current";
+                currentChar = document.getElementById(current).innerHTML;
+                currentKeyCode = currentChar.charCodeAt(0);
+            }
+
+            // Incorrect key
+            else {
+                if (wrong == 0)
+                {
+                    mistakes += 1
+                    wrong = 1
+                }
+                document.getElementById(current).className = "incorrect";
+            }
+        }
+        document.addEventListener("keypress", typingtest);
+
+        /* Adapted from https://stackoverflow.com/questions/1495219/how-can-i-prevent-the-backspace-key-from-navigating-back
+        Prevents backspace from taking the user back a page. */
+        $(document).keydown(function(e) { if (e.keyCode == 8) e.preventDefault(); });
+    </script>
+{% endblock %}
+
+
+

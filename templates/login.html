@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    {% if incorrect: %}
+        <div class="alert alert-danger" role="alert">
+            Incorrect username and/or password.
+        </div>
+    {% endif %}
+    <form action="/login" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password" minlength="8" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form><br>
+    <p>Don't have an account? <a href="/register">Register</a></p>
+{% endblock %}
